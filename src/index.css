@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.light{
-    background: red;
+
+
+body{
+    overflow-x: hidden;
+    background: #121212;
+    outline: none;
 }
 
-.dark{
-    background-color:blue;
+button{
+    outline:none;
 }

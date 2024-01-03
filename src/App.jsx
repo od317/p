@@ -1,47 +1,42 @@
-import {Routes,Route,Link, BrowserRouter, useLocation} from 'react-router-dom'
-import { useRef, useState } from 'react'
-import BookLayout from './BookLayout'
-import Book from './pages/Book'
-import BookList from './pages/BookList'
-import Home from './pages/Home'
-import NewBook from './pages/NewBook'
-import NotFound from './pages/NotFound'
-import BookRoutes from './BookRoutes'
+import React, { useRef,useState } from 'react'
+import {useEffect} from 'react'
+import Blobs from './components/blobs/Blobs'
+import Header from './components/Header/Header'
+import { ParallaxProvider } from 'react-scroll-parallax'
+import ProjectsLayout from './components/projects/ProjectsLayout'
+import ContactLayout from './components/contact/ContactLayout'
+import NavLayout from './components/nav/NavLayout'
+import AboutLayout from './components/about/AboutLayout'
 
-export default function App(){
-
-    const cards = useRef(null)
-    const slider = useRef(null)
-    let isPressed = false
-    let cursorX = 0
-
-
-    return(<>
-        
-           <div ref={slider} onMouseDown={(e)=>{
-               isPressed = true
-               cursorX = e.clientX - cards.current.offsetLeft
-               slider.current.style.cursor = "grabbing"
-               }}
-               onMouseMove={(e)=>{
-                    console.log(cursorX)
-                    if (!isPressed) return
-                    e.preventDefault()
-                    cards.current.style.left = `${e.offsetX - cursorX}px`
-                }}
-                className=' relative w-full bg-red-500 '>
-                <div ref={cards} className=' absolute w-full whitespace-nowrap overflow-hidden bg-red-500'>
- 
-                    <div className='bg-blue-500 inline-block w-[50%] text-center'>1</div>
-                    <div className='bg-blue-600 inline-block w-[50%]'>2</div>
-                    <div className='bg-blue-700 inline-block w-[50%]'>3</div>
-                    <div className='bg-blue-800 inline-block w-[50%]'>4</div>
-                    <div className='bg-blue-900 inline-block w-[50%]'>5</div>
-
-                </div>
-           </div>
+function App() {
+ const [p,setP] = useState(0)
+ const [a,setA] = useState(0)
+ const [h,setH] = useState(0)
+ const pro = useRef(null)
 
 
 
-    </>)
+ useEffect(()=>{
+     
+
+     
+     window.scrollTo({top:0})
+     setP(document.getElementById('Projects').offsetTop)
+     setH(document.getElementById('Home').offsetTop)
+     setA(document.getElementById('Abouts').offsetTop)
+ })
+
+ return(<>
+     <NavLayout p={p} h={h} a={a}></NavLayout>
+     <div className=' px-[2%] flex flex-col items-center'>
+          <ParallaxProvider>
+               <Header p={p}></Header>
+               <AboutLayout></AboutLayout>
+               <ProjectsLayout></ProjectsLayout>
+               <ContactLayout></ContactLayout>
+          </ParallaxProvider>
+     </div>
+     </>)
 }
+
+export default App
