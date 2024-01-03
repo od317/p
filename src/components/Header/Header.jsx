@@ -8,7 +8,8 @@ function Header({p}) {
     
     return (<>
 
-      {/* <HeaderText p={p}></HeaderText>  */}
+      <HeaderText p={p}></HeaderText> 
+      
       </>
     )
 }
